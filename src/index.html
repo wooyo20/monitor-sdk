@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="container">
+        <div class="content">
+            <input type="button" value="点击抛出错误" onclick="errorClick()">
+            <input type="button" value="点击抛出Promise错误" onclick="promisErrorClick()">
+            <input type="button" value="点击资源错误" onclick="resourceClick()">
+            <input id="successBtn" type="button" value="ajax成功请求" onclick="sendSuccess()">
+            <input id="failBtn" type="button" value="ajax失败请求" onclick="sendFail()">
+        </div>
+    </div>
+    <img src="" alt="" srcset="">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        setTimeout(() => {
+            let content = document.getElementsByClassName('content')[0];
+            let h1 = document.createElement('h1');
+            h1.innerHTML = '1233';
+            h1.setAttribute('elementtiming', 'meaningful');
+            content.appendChild(h1);
+        }, 2000)
+
+        function errorClick() {
+            window.someVar.error = 'error';
+        }
+
+        function promisErrorClick() {
+            new Promise(function(ressolve, reject) {
+                window.someVar.error = 'error';
+            }).then(res => {
+                console.log(res)
+            })
+        }
+
+        function resourceClick() {
+            img = document.querySelector('img');
+            img.src = '111.jpg'
+        }
+
+        function sendSuccess() {
+            axios.get('/success').then(res => {
+                console.log(res);
+            }).catch(err => {
+                console.log(err)
+            })
+        }
+
+        function sendFail() {
+            axios.get('/fail').then(res => {
+                console.log(res);
+            }).catch(err => {
+                console.log(err)
+            })
+        }
+    </script>
+</body>
+
+</html>
